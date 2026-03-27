@@ -1,0 +1,33 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+@org.springframework.stereotype.Controller
+public class Controller {
+
+	@GetMapping({ "/home", "/" })
+	public String showHome() {
+		return "home";
+	}
+
+	@GetMapping("/hello")
+	public String showHello() {
+		return "hello";
+	}
+
+	@GetMapping("/login")
+	public String showLogin() {
+		return "login";
+	}
+
+	@GetMapping("/admin")
+	public String showAdmin() {
+		return "login";
+	}
+
+	@GetMapping("/customer")
+	public String showCustomer() {
+		return "login";
+	}
+
+}

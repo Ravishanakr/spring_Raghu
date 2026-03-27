@@ -1,0 +1,13 @@
+package kk;
+
+import java.util.Arrays;
+
+public class maivn {
+
+	public static void main(String[] args) {
+
+		Arrays.asList(new Account(10, "Ravi", 1030.00),new Account(101, "Ravi", 1030.00));
+
+	}
+
+}

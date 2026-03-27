@@ -1,0 +1,31 @@
+package com.example.demo.ruuners;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+public class PostTestARunner2 implements CommandLineRunner {
+
+	@Override
+	public void run(String... args) throws Exception {
+
+		// 1.create headers
+		String url = "http://localhost:8080/v1/api/book/showD";
+
+		// 2.create headers
+		HttpHeaders headers = new HttpHeaders(null);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		// 3 .create body
+		String body = "{\"bid\":101, \"bname\":\"ABC\", \"bauth\":\"RAJ\",\"bcost\":500.0}";
+
+		HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
+		
+		
+		//4. Create RestTemplate object
+				RestTemplate template = new RestTemplate();
+
+	}
+
+}

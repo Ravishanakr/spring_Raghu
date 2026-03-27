@@ -1,0 +1,22 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class Controller {
+
+	@GetMapping({ "/home", "/" })
+	public String showHome() {
+		return "home";
+	}
+	
+	@GetMapping( "/hello")
+	public String showHello() {
+		return "home";
+	}
+	
+	@GetMapping("login")
+	public String showHome() {
+		return "home";
+	}
+
+}

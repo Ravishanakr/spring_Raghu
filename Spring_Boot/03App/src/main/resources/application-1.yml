@@ -1,0 +1,23 @@
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
+spring:
+  application:
+    name: 03App
+com.app:
+    code: 1234
+    name: Ravi
+    status: true
+    names:
+        - Ravi
+        - shankar
+        - derangula	
+    info:
+      key1: hui
+      key2: hello
+      key3: bye
+
+    prop:
+       sId: 201
+       sName: Ravi
+      

@@ -1,0 +1,57 @@
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class AppSecurity {
+
+	@Bean
+	SecurityFilterChain securityConfig(HttpSecurity http) throws Exception {
+
+		http.authorizeHttpRequests(req -> req.requestMatchers("/home", "/").permitAll()
+
+				.anyRequest().authenticated()).formLogin(form -> form.loginPage("/login").permitAll())
+				.logout(logout -> logout.permitAll());
+
+		return http.build();
+
+	}
+
+	@Bean
+	UserDetailsService users() {
+
+		// UserDetailsService it is an interface having loadUserByUsername method
+		// UserDetailsManager is also an interface and it is extending from
+		// UserDetailsService
+		// and having createUser,updateUser,deleteUser,changePassword,userExists methods
+
+		// InMemoryUserDetailsManager
+		// JdbcUserDetailsManager
+
+		UserDetails u1 = User.withUsername("Ravi")
+				.password("$2a$10$WUoIN3SS9FDCZQ6MQGsJXObNnuD0oWu7QJ.LhihN9/xHNGcpiTXS6").authorities("ADMIN").build();
+		UserDetails u2 = User.withUsername("Shankar")
+				.password("$2a$10$TgeguIUP5d2PqGshibEFr.yIn.YRa.4SRF3NZ7mtLJTD4.SjgRFmm").authorities("CUSTOMER")
+				.build();
+
+		return new InMemoryUserDetailsManager(u1, u2);
+
+	}
+
+	@Bean
+	PasswordEncoder passencoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+
+}

@@ -1,0 +1,49 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+
+<title>Book Application</title>
+
+</head>
+
+
+<body>
+
+
+	<table border="1">
+
+		<thead>
+			<tr>
+				<th>Book Id</th>
+				<th>Book Name</th>
+				<th>Book Cost</th>
+
+			</tr>
+		</thead>
+
+		<tbody>
+
+			<tr th:foreach="book :${booklist}">
+				<td th:text="${book.bookId}"></td>
+				<td th:text="${book.bookId}"></td>
+				<td th:text="${book.bookId}"></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+
+
+
+
+		</tbody>
+
+
+
+	</table>
+
+
+
+</body>
+
+
+</html>

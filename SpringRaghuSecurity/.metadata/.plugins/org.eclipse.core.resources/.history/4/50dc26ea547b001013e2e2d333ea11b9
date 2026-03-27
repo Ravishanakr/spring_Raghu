@@ -1,0 +1,13 @@
+package com.example.demo.service;
+
+import javax.swing.text.html.Option;
+
+import com.example.demo.entity.User;
+
+public interface IService {
+
+	public Integer saveuser(User user);
+
+	public Option<User> findById(Integer id);
+
+}

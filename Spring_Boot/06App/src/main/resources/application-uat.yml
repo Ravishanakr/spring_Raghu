@@ -1,0 +1,6 @@
+com:
+  app:
+    driver: Postgrs
+    name: ravi
+    url : Postgrs-jdbc
+    passwd: 1234

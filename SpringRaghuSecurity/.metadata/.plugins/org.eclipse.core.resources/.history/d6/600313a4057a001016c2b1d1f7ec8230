@@ -1,0 +1,13 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+
+public class Controller {
+	
+	@PostMapping("/home")
+	public String showHome()
+	{	
+		return "home";
+	}
+
+}

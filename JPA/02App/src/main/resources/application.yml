@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 02App
+
+  datasource:
+    username: root
+    password: Ravis04@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/RaghuSpring
+
+  jpa:
+    hibernate:
+      ddl-auto: create

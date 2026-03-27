@@ -1,0 +1,24 @@
+			 Date : 30-12-2022
+		    Spring Boot and Microservices
+			7AM | Mr. Raghu | (ASHOK IT)
+  ---------------------------------------------------------------------
+Workspace Link:
+https://github.com/javabyraghu/Workspace7AM_082022
+
+	 Microservices (Design) - Spring Cloud (Programming)
+
+1. Register and Discovery Server -- Eureka server
+-> Supports Storing MS# instance details and communication
+   using clients(DiscoveryClient, LoadBalancerClient, FeignClient)
+
+2. Config Server -- Github + Config
+-> Common key=val of multiple MS# kept at External Location.
+-> Each MS# reading this using Config Client Dependency.
+
+3. Admin Server + Actuator
+-> Moniter service to find details of MS# like
+  health, instances , cache, beans, environment..etc
+
+4. MS# implemented using Spring REST.
+
+========================================================================

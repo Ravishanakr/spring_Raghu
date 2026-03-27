@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: 04App
+com:
+  app:
+    email: ravi@gmail.com
+    password: 112321
+    userName: asaa
+    port: 2111
+    names:
+      - hui
+      - hello
+      - Hi
+    values:
+      keya : hello
+      keyb : Hui
+      keyc : huhui
+      
+

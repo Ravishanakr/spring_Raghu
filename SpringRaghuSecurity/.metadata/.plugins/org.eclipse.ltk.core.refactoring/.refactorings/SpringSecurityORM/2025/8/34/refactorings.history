@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SpringSecurityORM/src/main/resources/templates/userregistration.html&apos; to &apos;UserRegistration.html&apos;" description="Rename resource &apos;userregistration.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/resources/templates/userregistration.html" name="UserRegistration.html" stamp="1755431426788" updateReferences="true"/>
+</session>

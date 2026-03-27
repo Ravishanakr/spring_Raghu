@@ -1,0 +1,23 @@
+package com.example.demo.service;
+
+import java.util.Optional;
+
+import com.example.demo.entity.User;
+
+public class UserServiceImpl implements IService {
+
+	@Override
+	public Integer saveuser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<User> getOneUser(Integer id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	
+
+}

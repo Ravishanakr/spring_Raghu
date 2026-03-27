@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 07App
+    
+  datasource:
+    username: root
+    password: Ravis04@
+    url: jdbc:mysql://localhost:3306/RaghuSpring
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+   hibernate:
+    ddl-auto: update

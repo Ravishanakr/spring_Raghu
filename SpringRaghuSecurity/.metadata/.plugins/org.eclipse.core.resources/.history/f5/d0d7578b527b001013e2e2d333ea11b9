@@ -1,0 +1,5 @@
+spring.application.name=SpringSecurityORM
+
+spring.datasource.username=root
+spring.datasource.password=Ravis04@
+spring.datasource.url=jdbc:mysql://localhost:3306/springsecurity

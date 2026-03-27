@@ -1,0 +1,432 @@
+			        Date : 06-03-2023
+				 Tools Session
+				   8:30 PM
+	------------------------------------------------------------
+Unit testing:-
+=> Every developer will write code for a assigned task
+=> once code is done, need to be tested by Developer only.
+=> Such Testing is done by Unit Test F/w.
+
+*) General meaning of Unit is : Part of Code/Module/task..
+*) Manul test    : Testing manually on changes, enhancements is repeated work.
+   Automated Test: One time code, Execute/call same code next time.
+	Ex: JUnit F/w, TestNG..etc
+
+====================================================================
+JUnit 5.x:-
+ It is open Source java F/w to test java applications (PASS/FAIL)
+
+=> Actual Result after operation and expected result are same or not?
+
+1. JUnit Annotations
+2. JUnit Assert API
+
+=> We need to define one class that execute UnitTesting ie called as
+	 Test Case
+=> Inside this class, we define a method with @Test, ie called as 
+	Test method.
+Ex:
+class SampleTest {
+  @Test
+  void testSave() {
+  
+  }
+}
+
+===Ex#1==================================================
+pom.xml
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+
+	</dependencies>
+
+--Dummy Test case----
+package com.app.raghu;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class ProcessTest {
+	
+	@BeforeAll
+	public static void firstSetup() {
+		System.out.println("ONLY ONCE AT BEGINNING");
+	}
+	
+	@BeforeEach
+	public void setup() {
+		System.out.println("FROM BEFORE");
+	}
+	
+	@Order(30)
+	@Test
+	@DisplayName("FROM A TEST")
+	public void testA() {
+		System.out.println("FROM TEST#A METHOD");
+	}
+	
+	@Test
+	@Disabled
+	public void testB() {
+		System.out.println("FROM TEST#B METHOD");
+	}
+	
+	@Order(20)
+	@Test
+	@DisplayName("FROM C TEST")
+	public void testC() {
+		System.out.println("FROM TEST#C METHOD");
+	}
+	
+	@AfterEach
+	public void clean() {
+		System.out.println("FROM AFTER");
+	}
+	
+	@AfterAll
+	public static void lastCleanup() {
+		System.out.println("ONLY ONCE AT END");
+	}
+}
+
+*) If we use @Order then we must enable this, by adding
+ @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+ at class level
+
+*) ClassName ends with Test, method name starts with test
+   in naming convensions.
+Ex:
+class UserControllerTest {
+  @Test
+  void testSave() {}
+}
+
+===============Ex#2=====================================
+service code:
+package com.app.raghu;
+
+public class Calculator {
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+}
+
+Test code:
+package com.app.raghu;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class CalculatorTest {
+
+	Calculator c;
+	int a, b, actual, expected;
+
+	@BeforeEach
+	public void setup() {
+		c = new Calculator();
+		a = 10;
+		b = 20;
+		expected = 200;
+	}
+
+	@Test
+	@Order(10)
+	@DisplayName("TESTING NULL CHECK")
+	public void testObjCreated() {
+		assertNotNull(c);
+	}
+	
+	@Order(20)
+	@Test
+	@DisplayName("TESTING MULTIPLY OPERATION")
+	public void testMultiply() {
+		actual = c.multiply(a, b);
+		assertEquals(expected, actual);
+	}
+
+	@AfterEach
+	public void clean() {
+		c = null;
+	}
+
+}
+
+
+Q) How can we confirm that two references are pointed to same Object?
+A) we can use assertSame(ob1,ob2) to check are they pointed to same
+	object or not?
+
+====Singleton Database Connection testing==================
+*) pom.xml :-
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.0.32</version>
+		</dependency>
+
+*) Service class:
+package com.app.raghu;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConnectionUtil {
+
+	private static Connection con = null;
+
+	static {
+		try {
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/boot7am", "root", "root");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Connection getConnection() {
+		return con;
+	}
+}
+
+*) TEST CLASS:
+package com.app.raghu;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+import java.sql.Connection;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class ConnectionUtilTest {
+
+	Connection con1, con2;
+	
+	@BeforeEach
+	public void setup() {
+		con1 = ConnectionUtil.getConnection();
+		con2 = ConnectionUtil.getConnection();
+	}
+	
+	@Test
+	@Disabled
+	@DisplayName("CHECKING NOT NULL")
+	@Order(1)
+	public void testNotNull() {
+		assertAll(
+				()->assertNotNull(con1),
+				()->assertNotNull(con2)
+				);
+	}
+	
+	@Test
+	@DisplayName("CHECKING SAME REF")
+	@Order(2)
+	public void testSameRef() {
+		assertSame(con1, con2);
+	}
+	
+	@AfterEach
+	public void clean() {
+		con1 = con2  = null;
+	}
+	
+}
+===================================================================
+			     Mockito
+
+*) We are Dev-3 working on Module-3.
+*) I want to Code for Module-3 and test but it is internally dependent 
+	on Module-2
+*) So, I'll Create Dummy Implementation of Module-2 for Devlop and 
+   Test Module-3. ie called as Mocking.
+*) Mocking can be done for even Database Connections, Server setup, 
+	Request object creation..etc
+
+//depends on
+interface ProductService {
+  Integer saveProduct();
+}
+
+//develop and test
+class ProductController {
+  ProductService ps;
+
+}
+
+ProductService ps = mock(ProductService.class);
+
+*) Stub is created for ProductService (Dummy Impl class)
+
+class Proxy$1 implements ProductService {
+  public Integer saveProduct() {
+    return 0;
+  }
+}
+
+ProductService ps = new Proxy$1();
+--------------------------------------
+when(ps.saveProduct()).thenReturn(100);
+when(ps.saveProduct()).thenReturn(Mock.anyInt());
+
+==========Mockito Basic Example#1===================
+*) Service class:
+package com.app.raghu;
+
+public interface ProcessInfo {
+
+	Integer getCode(String code);
+}
+
+*) Test class:
+package com.app.raghu;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
+public class TestMockProcessInfo {
+	@Test
+	public void testInfo() {
+		ProcessInfo ps = mock(ProcessInfo.class);
+		when(ps.getCode("ABC")).thenReturn(100);
+		
+		assertEquals(ps.getCode("ABC"), 100);
+	}
+}
+=======Basic Example#2=======================================================
+*) Application code:
+package com.app.raghu;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class Repository {
+	
+	public List<String> getData() throws SQLException {
+		return null;
+	}
+}
+
+-------------
+package com.app.raghu;
+
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Service {
+
+    private Repository repository;
+
+    public Service(Repository repository) {
+        this.repository = repository;
+    }
+    
+    public List<String> getDataLen() {
+        try {
+            return repository.getData().stream()
+                    .filter(data -> data.length() < 5)
+                    .collect(Collectors.toList());
+        } catch (SQLException e) {
+            return Arrays.asList();
+        }
+    }
+}
+
+
+*) Test class code:
+package com.app.raghu;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+public class ServiceTest {
+
+	@Mock //creates stub for Repository (Dummy Impl code)
+	private Repository repo;
+	
+	@InjectMocks //creates actual object of service with dummy Repo object injected
+	private Service sob;
+	
+	@Test
+	public void testGetDataLen() throws SQLException {
+		//provide dummy impl for method getData(), that returns Array of 5 elements
+		when(repo.getData())
+		.thenReturn(Arrays.asList("A","B","TEST","WELCOME","FORMAT"));
+		
+		List<String> list = sob.getDataLen();
+		assertNotNull(list);
+		assertEquals(list.size(), 3);
+		
+	}
+	
+}
+======================================================================
+*) Recomanded to use Embedded Databases: H2 for Testing Spring Boot
+  Applications
+

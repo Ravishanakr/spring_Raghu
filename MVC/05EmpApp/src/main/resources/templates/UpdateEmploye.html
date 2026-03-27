@@ -1,0 +1,105 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+
+
+
+<title>Employee Update Page</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+
+</head>
+
+
+<body>
+
+
+
+	<div class="container mt-5">
+
+		<div class="card">
+
+			<div class="card-header bg-info text-white text-center">
+				<h3>Employee Update Form</h3>
+
+			</div>
+
+
+			<div class="card-body ">
+				<form th:action="@{/employe/update}" method="POST"
+					th:object="${employee}">
+
+					<dl>
+
+
+						<dt>Employee Id</dt>
+						<dd>
+							<input type="text" th:field="*{empId}" readonly="readonly"
+								class="form-control" />
+						</dd>
+
+
+						<dt>Employee Name</dt>
+						<dd>
+							<input type="text" th:field="*{empName}" class="form-control">
+						</dd>
+
+						<dt>Employee Salary</dt>
+						<dd>
+							<input type="number" th:field="*{empSal}" class="form-control">
+						</dd>
+
+						<dt>Employee Department</dt>
+						<dd>
+
+							<select th:field="*{empDept}" class="form-control">
+								<option value="">Development</option>
+								<option value="">Testing</option>
+								<option value="">Devops</option>
+							</select>
+						</dd>
+
+
+						<dt>Employee empAddress</dt>
+						<dd>
+							<input type="text" th:field="*{empAddress}" class="form-control" />
+
+						</dd>
+
+						<dt>Employee DOB</dt>
+						<dd>
+							<input type="text" th:field="*{empDob}" class="form-control" />
+						</dd>
+
+
+						<dt>Employee Gender</dt>
+						<dd>
+							<input type="text" th:field="*{empGender}" class="form-control" />
+						</dd>
+
+
+					</dl>
+
+
+					<button class="btn btn-primary">UPDATE</button>
+				</form>
+
+			</div>
+			<div class="card-footer">
+				<div th:if="${EmpID}">
+					<h5 class="bg-success text-center">
+						Employee <span th:text="${EmpID}"> </span> Created
+					</h5>
+				</div>
+
+			</div>
+
+
+
+		</div>
+	</div>
+</body>
+
+</html>

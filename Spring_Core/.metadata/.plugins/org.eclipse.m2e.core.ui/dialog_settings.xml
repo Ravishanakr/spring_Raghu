@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="D:\Spring_Raghu\Spring_Core\SpringSheduling02"/>
+			<item value="D:\Spring_Raghu\Spring_Core\SpringSheduling"/>
+			<item value="D:\Spring_Raghu\Spring_Core\07App"/>
+			<item value="D:\Spring_Raghu\Spring_Core\CircularDependency"/>
+			<item value="D:\Spring_Raghu\Spring_Core\10App"/>
+			<item value="D:\Spring_Raghu\Spring_Core\5App\src\main\java\com\app\DataBase.java"/>
+			<item value="D:\Spring_Raghu\Spring_Core\2SecondApp\src\main\java\com\app\Repository.java"/>
+			<item value="D:\Spring_Raghu\Spring_Core\FirstApp"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+		</list>
+		<list key="groupId">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+			<item value="com.demo"/>
+			<item value="com.app"/>
+			<item value="6App"/>
+		</list>
+		<list key="name">
+			<item value="com.app"/>
+		</list>
+		<list key="artifactId">
+			<item value="Pracice"/>
+			<item value="SpringSheduling02"/>
+			<item value="08App"/>
+			<item value="SpringSheduling"/>
+			<item value="CircularDependency"/>
+			<item value="SpEL"/>
+			<item value="12App"/>
+			<item value="LookUpmethodInjection"/>
+			<item value="11App"/>
+			<item value="10App"/>
+			<item value="9App"/>
+			<item value="8App"/>
+			<item value="7App"/>
+			<item value="com.app"/>
+			<item value="5App"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

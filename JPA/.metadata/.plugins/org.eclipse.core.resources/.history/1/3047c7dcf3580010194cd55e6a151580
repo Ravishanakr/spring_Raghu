@@ -1,0 +1,19 @@
+package kk;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class maivn {
+
+	public static void main(String[] args) {
+
+		 List<Account> asList = Arrays.asList(new Account(10, "Ravi", 1030.00), new Account(101, "Shankar", 1030.00));
+
+		
+		
+		System.out.println(asList);
+		
+	}
+
+}

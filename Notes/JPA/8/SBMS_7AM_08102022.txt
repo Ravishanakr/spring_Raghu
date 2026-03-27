@@ -1,0 +1,17 @@
+Positional Parameters:
+======================
+->Input Given at runtime
+
+
+
+1)Postional Parameters  (0?,1?,2?)
+2)Named Parameters:   (:empId,:empName)
+
+1)Do we need to provide @Reposotory annotation on Data Jpa Repository interface
+
+->Not required 
+->In spring ,we need to define one interface and implementation class for reposotory 
+on implementation class we need to define reposotory
+
+->Here in Data JPA dynamic proxy (Impl Class+object) is given by springBoot so direclty 
+ you use where you want 

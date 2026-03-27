@@ -1,0 +1,30 @@
+package com.example.demo.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.entity.User;
+import com.example.demo.repo.UserRepo;
+
+public class UserServiceImpl implements IService {
+
+	@Autowired
+	private UserRepo repo;
+
+	@Override
+	public Integer saveuser(User user) {
+
+		User save = repo.save(null);
+		Integer userId = save.getUserId();
+
+		return userId;
+	}
+
+	@Override
+	public Optional<User> getOneUser(Integer id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+}

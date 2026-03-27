@@ -1,0 +1,98 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+
+
+
+<title>Employee Register Page</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+
+</head>
+
+
+<body>
+
+
+
+	<div class="container mt-5">
+
+		<div class="card">
+
+			<div class="card-header bg-info text-white text-center">
+				<h3>Employee Register Form</h3>
+
+			</div>
+
+
+			<div class="card-body ">
+				<form th:action="@{/employe/save}" method="POST">
+					<dl>
+						<dt>Employee Name</dt>
+						<dd>
+							<input type="text" name="empName" class="form-control">
+						</dd>
+
+						<dt>Employee Salary</dt>
+						<dd>
+							<input type="number" name="empSal" class="form-control">
+						</dd>
+
+						<dt>Employee Department</dt>
+						<dd>
+
+							<select name="empDept" class="form-control">
+								<option>Select</option>
+								<option>Development</option>
+								<option>Testing</option>
+								<option>Devops</option>
+							</select>
+						</dd>
+
+
+						<dt>Employee empAddress</dt>
+						<dd>
+							<textarea rows="4" cols="20" name="empAddress"
+								class="form-control"></textarea>
+						</dd>
+
+						<dt>Employee DOB</dt>
+						<dd>
+							<input type="date" name="empDob" class="form-control">
+						</dd>
+
+
+						<dt>Employee Gender</dt>
+						<dd class="d-flex">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" value="Male"
+									name="empGender"> <label class="form-check-label"
+									for="radioDefault1"> Male </label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" value="FeMale"
+									name="empGender"> <label class="form-check-label"
+									for="radioDefault2"> FeMale </label>
+							</div>
+						</dd>
+
+
+					</dl>
+
+
+					<button class="btn btn-primary">SUBMIT</button>
+				</form>
+
+			</div>
+			<div th:if="${EmpID}">
+				<h5 class="card-footer bg-success text-center">
+					Employee <span th:text="${EmpID}"> </span> Created
+				</h5>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

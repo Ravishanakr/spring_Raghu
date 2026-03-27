@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: 06App
+com:
+  app:
+    driver: jdbc-oracle
+    passwd: 1234
+    url: Oracle
+    user-name: root
