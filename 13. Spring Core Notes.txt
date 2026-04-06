@@ -1,0 +1,1924 @@
+===========
+Framework 
+===========
+
+=> Semi Developed software which provides common logics required for projects development.
+
+=> Frameworks will help the developers to implement more functionality in less time
+
+=> When we use framework to develop the project, we can focus only on business logic.
+
+==================
+Types of Frameworks
+==================
+
+1) Frontend Frameworks  : To develop user interface in the project.
+
+			Ex: Angular 
+
+2) Web Frameworks : To develop web layer in the project
+
+			Ex: Struts (Outdated)
+
+3) ORM Frameworks : To develop persistence layer in the project.
+
+			Ex: Hibernate
+
+
+=> By using Struts we can develop only Web Layer in the Project ( Controllers ) 
+
+=> By using Hibernate we can develop only Data Access Layer (Persistence Layer)
+
+
+Note: To overcome the problems of Struts framework, Spring Framework came into market.
+
+=> Spring Framework is called as Application Development Framework
+
+=> By using Spring framework we can develop end to end application(Both web,persistence layer etc..)
+
+=> Spring is free  & open source framework
+
+=> Spring Framework developed in Modular Fashion
+
+=> Spring Current version is 6.0 version
+
+Note: Spring framework means collection of modules
+
+==============
+Spring Modules
+==============
+
+1) Spring Core
+2) Spring Context
+3) Spring JDBC
+4) Spring ORM
+5) Spring AOP
+6) Spring Web MVC
+7) Spring Security
+8) Spring Social
+9) Spring Batch
+10) Spring Data JPA
+11) Spring REST 
+12) Spring Cloud
+
+
+Note: Spring is very flexible framework. It will not force to use all modules. Based on requirement we can pickup particular module and we can use it.
+
+=> Spring is versatile framework ( Easily it can be integrated with other frameworks )
+
+=> The current version of Spring framework is 6.0
+
+=> Spring framework is under license of VM Ware Tanza...
+
+			URL : www.spring.io
+
+===============================================================================================
+
+1)   Spring Core : It is base module in the spring framework.
+
+	=> Spring Core Module providing fundamental concepts of Spring Framework
+
+				1) IOC Container ( Inversion Of Control )
+
+				2) Dependency Injection
+
+				3) Bean Life cycle
+
+				4) Bean Scopes
+
+				5) Autowiring etc...
+
+
+2)  Spring Context : It will deal with configurations required for our Spring Applications.
+
+3) Spring AOP : Aspect Oriented Programming
+
+	=> AOP is used to seperate business logics & Secondary logics in the project
+
+				Ex: Security, Logging, Tx, Auditing, Exception Handling...
+		
+Note: If we combine business logics & secondary logics then we will face maintence issues of our project.
+
+
+4) Spring JDBC :  Spring JDBC is used to simplify Database Communication logic
+
+	=> In java jdbc we need to write boiler plate code (repeated code) like below in several classes
+
+					=> Load driver
+					=> Get connection
+					=> Create Statement
+					=> Execute Query
+					=> Close connection
+
+	=> Using Spring JDBC we can directley execute query the remaining part Spring JDBC will take care		
+
+
+5) Spring Web MVC : It is used to develop both Web Applications & Distributed Applications
+
+		=>  Web Applications ( C 2 B )
+	
+			Ex: Gmail.com, facebook.com etc...
+
+		=> Distributed Applications ( B 2 B )  / Web Services or RESTFul Service
+
+			Ex: 
+
+			       IRCTC ---- MakeMyTrip
+
+			       Passport --- AADHAR app
+
+
+6) Spring ORM (Object Relational Mapping)
+
+		=> Spring Framework having integration with ORM frameworks
+
+			Ex: Spring ORM , Spring Data JPA etc....
+
+Note: JDBC will represent data in text format where as Hibernate ORM will represent data in Objects format.
+
+
+7) Spring Security 
+
+		=> Security is very crucial for every application
+
+		=> Using Spring Security We can implement Authentication & Authorization 
+
+		=> Spring Security with OAuth2.0
+	
+		=> Spring Security with JWT (JSON Web Tokens)
+
+
+8) Spring Batch  : Batch means bulk operation
+
+		=> Reading data from Excel and store it into database table
+
+		=> Sending Monthly statements to customers in email
+
+		=> Sending Reminders to customers as Bulk SMS
+
+
+9) Spring Cloud : It provides some common tools to quickly build distributed systems.
+
+		=> It provides service registry to register all our microservices at one place
+
+		=> It provides API Gateway to have single entry point for all our apis
+		
+		=> Load Balancer
+
+		=> Monitoring
+
+		=> Circutit Breaker ( Fault Tolerant Systems / Resillence )
+
+		=> Distributed Messaging
+
+		=> Routing
+
+
+10) Spring Test : It provides Unit Test framework
+
+===============================================================================================
+
+
+=============================================================================
+Spring Core : It is all about Managing dependencies among the classes with loosely coupling
+=============================================================================
+
+=> In project we will develop several classes. All those classes we can categorize into 3 types
+
+			1) POJO
+
+			2) Java Bean
+
+			3) Component
+
+================================
+What is Pojo ( Plain Old Java Object )
+===============================
+
+=> Any Java class which can be compiled by using only JDK software is called as POJO class.
+
+Ex-1 : Below class is valid POJO
+
+class Demo1 {
+
+	int id;
+	String name;
+}
+
+Ex-2 : Below class is valid POJO
+
+class Demo2 extends Thread {
+
+	int id;
+	String name;
+}
+
+Ex-3 : Below class is valid POJO
+
+class Demo3 implements Runnable {
+
+		// run method
+}
+
+Ex-4 : Below class is not POJO because Servlet is part of JEE
+
+class Demo4 implements Servlet {
+
+		// run method
+}
+
+===================
+What is Java Bean ?
+===================
+
+=> Any java class which follows bean specification rules is called as Java Bean.
+
+1) Class should can implement serializable interface
+
+2) Class should have private variables 
+
+3) Every private variable should have public setter & public getter method
+
+4) Class should have zero-param constructor
+
+Note : Bean classes are used to write business logic and to store and retrieve data
+
+
+===================
+What is Component ?
+===================
+
+=> The java classes which contains business logic is called as Component classes
+
+		Ex: Controllers, Services , Dao classes 
+
+		=> Controller classes will have logic to deal with Request & Response
+
+		=> Service classes will have business logic of our project
+
+			Ex: Generate OTP, Send OTP, Send Email, Encrypt & Decrypt PWD etc...
+
+		=> DAO classes will contain the logic to communicate with Database
+
+===============================================================================================
+
+=> In a project we will develop multiple classes and those classes will be dependent on other classes.
+
+
+			Ex:
+	
+				=> Controller class will call service class methods
+
+				=> Service class will call Dao class methods
+
+
+=> In Java one class can talk to another class in 2 ways
+
+			1) Inheritence ( IS - A ) 
+ 
+			2) Composition  ( HAS -  A )
+
+
+=====================
+Car & Engine Example
+=====================
+
+class Engine {
+
+	void start ( ) {
+		// logic
+	}
+
+}
+
+
+class Car {
+
+	void drive( ) {
+		 // star the engine
+		 // drive the car
+	}
+}
+
+
+=> If we want to drive the car then we need to start the Engine that means Car class drive ( ) method should call Engine class start ( ) method.
+
+Q) In how many ways Car class can call Engine class method ?
+
+=> in 2 ways
+
+			1) Inheritence
+
+			2) Composition
+
+
+============================= IS-A approach ========================
+package in.ashokit;
+
+public class Engine {
+	
+	public int start ( ) {
+		// logic
+		return 1;
+	}
+}
+
+package in.ashokit;
+
+public class Car extends Engine {
+
+	public void drive() {
+
+		// start the engine
+
+		int start = super.start();
+
+		if (start >= 1) {
+			System.out.println("Journey Started");
+		}
+
+		// start the journey
+	}
+}
+========================== HAS - A Relation ===============================
+
+
+public class Car {
+
+	public void drive() {
+
+		Engine eng = new Engine ( );
+		int start = eng.start();
+
+		if (start >= 1) {
+			System.out.println("Journey Started");
+		}
+
+		// start the journey
+	}
+}
+
+
+Note: Tomorrow, if Engine class constructor modified then our Car class will be effected.
+
+=================================================================================================
+
+Note: If we use any approach from above then Car class will become tightley coupled with Engine class. That is not recommended.
+
+
+##################### Always we need to develop our classes with Loosely Coupling ######################
+
+
+=> Loosely coupling means without creating Object and without Inheriting properties we should be able to access one class method in  another class.
+
+=> If we make any changes in Engine class then Car class shouldn't be effected then we can say our classes are loosely coupled.
+
+######################## To develop classes with loosely coupling we need to use Interfaces ############
+
+
+=========================
+Strategy Design Pattern(We can avoid tight coupling by using this pattern)
+=========================
+
+1) Favour composition over inheritence
+
+2) Code with Interfaces instead of implementation classes
+
+3) Code should be open for extension and closed for modification
+
+
+
+package in.ashokit;
+
+public class Car {
+
+	private IEngine eng;
+
+	public Car(IEngine eng) {
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int start = eng.start();
+
+		if (start >= 1) {
+			System.out.println("Journey Started...");
+		} else {
+			System.out.println("Engine in trouble...");
+		}
+	}
+}
+---------------------------------------------------------------
+package in.ashokit;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Car car = new Car (new PetrolEngine());
+		car.drive();
+	}
+}
+
+---------------------------------------------------------------------------
+
+
+
+===========================
+What is Dependency Injection ?
+============================
+
+
+=> Dependency : A variable (instance variable) exist inside a class (Spring Bean)
+
+
+=> Injecting dependent object into target class object using target class setter method.
+
+
+Dependency types
+================
+
+    1. Primitive Type Dependency (PTD) [8+1]
+	=>byte, short, int , long, float, double, boolean, char and String
+    If a variable is created using one of above datatype then it is
+    called as PTD.
+	
+	2. Collection Type Dependency (CTD) [4]  (java.util)
+	
+	=>If a variable is created using one of below types
+	=>List, Set, Map [I] and Properties (C)then it is called as CTD.
+	
+	3. Reference Type Dependency (RTD) ****
+	=>A variable is created using class type or Interface type then it is called RTD
+
+
+
+
+=> The process of injecting one class object into another class is called as 'Dependency Injection'.
+
+=> We can perform Dependency Injection in 3 ways
+
+		1)Setter Injection
+
+		2)Constructor Injection
+
+		3)LookUp Method Injection (LMI)
+
+        4)Interface Injection (II)(Not used)
+		
+		5)Field Injection
+
+		
+		
+		
+		
+
+-------------------------------- Example to Understand Dependency Injection --------------------------------
+public class Car {
+
+	private IEngine eng ;
+	
+	public void setEng(IEngine eng) {
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int start = eng.start();
+
+		if (start >= 1) {
+			System.out.println("Journey Started...");
+		} else {
+			System.out.println("Engine in trouble...");
+		}
+	}
+}
+------------------------------------------------------------------------------
+
+
+=> In the above program 'Car' class is dependent on 'Engine' object that means 'Engine' class object should be injected into 'Car' class.
+
+
+		Note: Car is dependent on Engine
+
+
+==============================
+Setter Injection (SI)
+=============================
+
+=> Setter Injection means, Injecting dependent object into target class using target class setter method.
+
+=>Injecting one class object into another classs object by using setters method is called Setter Injection
+
+public class Car {
+
+	private IEngine eng;
+
+	public void setEng(IEngine eng) {
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int start = eng.start();
+		// logic
+	}
+}
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		// creating target obj
+		Car car = new Car();
+
+		// injecting dependent obj into target thru setter method (Setter Injection - SI)
+		car.setEng(new PetrolEngine());
+
+		car.drive();
+	}
+}
+
+=========================
+Constructor Injection  ( CI )
+========================
+
+=> Constructor Injection means, Injecting dependent object into target class using target class constructor.
+
+
+public class Car {
+
+	private IEngine eng;
+	
+	public Car (IEngine eng) {
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int start = eng.start();
+		// logic
+	}
+}
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		// creating target obj  ( Constructor Injection ) 
+		Car car = new Car(new DieselEngine());
+
+		car.drive();
+	}
+}
+
+
+
+==============================================================
+
+Q) Can we perform both SI & CI for single variable ?
+
+Yes, but Setter Injection will override Constructor Injection value.
+
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		// creating target obj ( Constructor Injection - CI )
+		Car car = new Car(new DieselEngine());
+		
+		// Setter Injection - SI
+		car.setEng(new PetrolEngine());
+
+		car.drive();
+	}
+}
+
+===================
+Field Injection - FI
+===================
+
+=> Field Injection means, injecting dependent object into target class using target class variable is called as Field Injection.
+
+
+public class Car {
+
+	private IEngine eng;
+
+	public void drive() {
+		int start = eng.start();
+
+		if (start >= 1) {
+			System.out.println("Journey Started...");
+		} else {
+			System.out.println("Engine in trouble...");
+		}
+	}
+}
+
+###### Note: We can access private variables outside of the class using Reflection API like below ######
+
+public class Main {
+
+	public static void main(String[] args) throws Exception {
+
+		Class<?> clz = Class.forName("in.ashokit.Car");
+		
+		Object object = clz.newInstance();
+		Car carObj = (Car) object;
+		
+		Field engField = clz.getDeclaredField("eng");
+		engField.setAccessible(true);
+		
+		// Injecting value to variable
+		engField.set(carObj, new PetrolEngine());
+		
+		carObj.drive();
+	}
+}
+
+================
+IOC Container
+================
+
+->IOC stands for Inversion Of Control and also it is an Principle.
+
+->IOC Container will create the objects and it will manage the objects and is responsible or take care of Dependency Injection
+
+-> IoC container will manage life cycle of Spring Beans.
+
+-> Dependency Injection means creating and injecting dependent bean objects into target bean classes.
+
+
+*) Spring Container :
+
+1. Find/scan classes
+2. Create object
+3. Provide data and link objects
+4. Destory objects/container.
+
+
+Container:A memory that holds objects
+
+
+
+*) Ioc container takes two inputs.
+
+1. Spring Bean : 
+2. Spring Configuration : XML/ Java/ Annotation.
+
+
+
+===================
+What is Spring Bean ?
+===================
+
+-> Any Java class whose lifecycle (creation to destruction) is managed by IOC is called 
+  as Spring Bean (or)
+-> class that follows rules given by spring container.
+
+
+
+Spring Bean
+============
+1.class should public
+
+2.class sholud be in package
+
+3.variables recomended in private 
+
+4.default constructors with setters and getters
+
+or parameterized constructor
+
+5.our class can have overridden methods i.e toString() ..equls() and hashcode()
+
+6.class can inherit(extends/implements)spring beans only
+
+7.spring beans can implements serializable
+
+8.methods public only.
+
+*) native : A method which has its impl code at another language (C-language)
+
+
+
+XML Configuration Tags:
+-----------------------
+1)  <bean id="" class="">
+
+    --  creating object
+
+     </bean>
+	 
+2) <property>		       --  calling set method
+3) <constructor-arg>	   --  using parameterized constructor
+5) <value>                 --  Primitive Type 
+6) <list> [List] <set> [Set] <map> [Map] <props> [Properties]
+
+<ref/>			      -- Reference Type (link two objects)
+
+
+
+
+-> We can represent Java class as Spring Bean in 2 ways
+
+		1) XML Approach
+
+				Ex: 	<bean id ="id1" class = "pkg.ClassName" />
+
+		2) Annotation Approach (Recommended)
+
+				Ex: @Component, @Service, @Repository etc....
+
+
+Note: In Spring we can use both XML & Annotation approaches.  SpringBoot will support only Annotations (no xmls)
+
+
+
+
+Maven
+======
+->Maven is a build tool for java Applications.
+->Maven devloped By Apache org.
+->Maven Software devloped by using Java language.
+->Maven is free and open Source
+
+
+
+==================================
+How to Start/create IoC in Spring ?
+==================================
+
+1) BeanFactory (Spring container--legacy)
+
+2) ApplicationContext (Spring container)
+
+
+	Ex:     ApplicationContext context = new ClassPathXmlApplicationContext(String configFile);
+
+
+-> ClassPathXmlApplicationContext
+
+     : creating Spring container by reading XML file from
+         src/main/resources folder.
+
+Note: Bean Configuration file contains Bean Definitions
+
+		(target class, dependent class, Dependency Injection type)
+
+-> getBean : This method is used to read object from container.
+
+Note: When IoC container started it will read bean defintions from Bean Configuration File 
+		and it will perform Dependency Injection.
+
+
+=====================================================
+First Application Development using Spring Core Module
+======================================================
+
+Pre-Requesites :  JDK 1.8v, STS IDE
+
+1) Create Maven Project in IDE
+
+2) Add 'Spring Context' Dependency in pom.xml file  (search here : www.mvnrepository.com)
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.2.22.RELEASE</version>
+		</dependency>
+	</dependencies>
+
+3) Create Required Java classes (Ex:  IEngine, PetrolEngine, DieselEngine and Car )
+
+4) Create Bean Configuration File and configure Bean Definitions
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="petrolEng" class="in.ashokit.beans.PetrolEngine" />
+
+	<bean id="car" class="in.ashokit.beans.Car">
+	
+		<property name="eng" ref="petrolEng" />
+	</bean>
+
+</beans>
+
+Note: Here <property/> tag represents setter injection.
+
+5)creating Spring container by reading XML file from src/main/resources folder.
+
+public class App {
+	
+	public static void main(String[] args) {
+		// starting iOC container
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		// getting bean object from IOC
+		Car car = context.getBean(Car.class);
+		car.drive();
+	}
+}
+
+=================================================
+Difference Between BeanFactory & ApplicationContext
+=================================================
+
+=> BeanFactory(legacy) interface having - XmlBeanFactory as only one implementation class
+
+=> supports only xml
+
+		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("Beans.xml"));
+	
+=> ApplicationContext interface having - ClassPathXmlApplicationcontext as implementation class
+                                         AnnotationConfigApplicationContext
+										 FileSystemXmlApplicationcontext
+										 
+=> Supports all configuration
+
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+
+
+=> BeanFactory will follow Lazy Loading concept that means when we request then only it will create Bean object.
+
+=> ApplicationContext will follow Eager Loading for Singleton Beans. For Prototype beans it will also follow Lazy Loading
+
+*****Note: Spring Bean default scope is Singleton
+
+=>Eager Loading means creating objects for Spring Bean when IoC starts
+
+=>Lazy Loading means creating objects for Spring Bean when we call getBean ( ) method.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Note: XmlBeanFactory is deprected that means it may not available in future versions of Spring.
+
+Note: It is recommended to create IoC using Application Context.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		System.out.println("===== BeanFactory Started =====");
+		
+		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("Beans.xml"));
+		
+		System.out.println("===== ApplicationContex Started =====");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		Car bean = context.getBean(Car.class);
+		bean.drive();
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+==================================================================
+How to differentiate Setter Injection & Construction Injection in Bean Config File ?
+==================================================================
+
+=> <property /> tag represents setter injection
+
+=> <constructor-arg /> tag represents constructor injection
+
+	<bean id="petrolEng" class="in.ashokit.beans.PetrolEngine" />
+
+	<bean id="dieselEng" class="in.ashokit.beans.DieselEngine" />
+
+	<bean id="car" class="in.ashokit.beans.Car">
+		<property name="eng" ref="dieselEng" />
+		<constructor-arg name="eng" ref="petrolEng" />
+	</bean>
+
+Note: When we perform both SI & CI then SI will override CI value.
+
+
+
+
+============
+Bean Scopes
+============
+
+=> Scope represents how many objects should be created for a Spring Bean and how long they live container/memory.
+
+=> In Spring framework we have below scopes
+
+			1) singleton    (default scope=>One Object is created by Spring 
+			                     container per configuration)
+
+
+=>If the scope is set to singleton then such beans are created 
+  while creating spring container (ie EAGER LOADING).
+
+   
+			2) prototye     (Creates new object on every access.)
+			
+			-->prototye and singleton are reserved word and ther are case sensitive
+			
+=>If the scope is set to prototype then such beans are created after creating spring container, 
+means every time new object will be created when we try to read object (ie LAZY LOADING).
+
+
+Q. How can we force container to behave Lazy for singleton beans?
+=> We need to add one annotation @Lazy over Bean Config.
+
+
+			3) request   (Create one new object when request comes to server)
+
+			4) session  (Creates one new object when session is created/login sucess)
+
+=> To represent bean scope we will use    "scope" attribute
+
+		<bean id="id"  class="pkg.classname"  scope = "singleton | prototye | request | session " />
+
+
+Note: request & session scopes are related to Spring Web MVC Module.
+
+=======================================
+Why Spring Bean is by default Singleton ?
+=======================================
+
+=> To save memory of JVM spring team made singleton as default scope for the spring beans.
+
+   Ex: Rest Controllers, Controllers, Services and DAOs will be considered as Singleton in the project
+
+
+Ex: TicketGenerator class is used to generate new Ticket for every customer
+
+
+   DatabaseCon --1 object is fine so goto singleton
+   OTP         --need different object every time -- prototype
+
+
+
+===================XML EXAMPLE -- Spring Bean Scope ==========
+1. Spring Bean
+package com.app.raghu;
+
+public class Token {
+
+	private String code;
+
+	public Token() {
+		super();
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return "Token [code=" + code + "]";
+	}
+	
+	
+}
+
+2. Spring XML Config File
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean 
+		id="t1" 
+		class="com.app.raghu.Token"
+		scope="prototype"
+		>
+		<property name="code" value="SAMPLE"/>
+	</bean>
+</beans>
+
+3. test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("/myconfig/beans.xml");
+		//Reading object from container
+		Token tob1 = ac.getBean("t1",Token.class);
+		System.out.println(tob1.hashCode());
+		
+		//Reading object from container
+		Token tob2 = ac.getBean("t1",Token.class);
+		System.out.println(tob2.hashCode());
+	}
+}
+============================================================
+	Spring Bean Scope Annotation Config
+*************************************************************
+1. Spring Bean
+package com.app.raghu;
+
+import java.util.Random;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component("t1")
+//@Scope("singleton")
+@Scope("prototype")
+public class Token {
+
+	private int code;
+
+	public Token() {
+		super();
+		code = Math.abs( new Random().nextInt() );
+	}
+
+	@Override
+	public String toString() {
+		return "Token [code=" + code + "]";
+	}
+	
+	
+	
+}
+
+2. Spring Config class
+package com.app.raghu;
+
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan("com.app.raghu")
+public class AppConfig {
+
+}
+
+3. Test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		Token ta1  = ac.getBean("t1",Token.class);
+		System.out.println(ta1);
+		Token ta2  = ac.getBean("t1",Token.class);
+		System.out.println(ta2);
+	}
+}
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	Spring bean -- Java Config Example
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+1. Spring Bean
+package com.app.raghu;
+
+import java.util.Random;
+
+//@Component("t1")
+//@Scope("singleton")
+//@Scope("prototype")
+public class Token {
+
+	private int code;
+
+	public Token() {
+		super();
+		code = Math.abs( new Random().nextInt() );
+	}
+
+	@Override
+	public String toString() {
+		return "Token [code=" + code + "]";
+	}
+	
+	
+	
+}
+
+2. Spring Config class
+package com.app.raghu;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+//@ComponentScan("com.app.raghu")
+@Configuration
+public class AppConfig {
+
+	//1. Bean = 1 Method
+	@Bean
+	@Scope("prototype")
+	public Token t1() {
+		return new Token();
+	}
+	
+}
+
+3. Test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		Token ta1  = ac.getBean("t1",Token.class);
+		System.out.println(ta1);
+		Token ta2  = ac.getBean("t1",Token.class);
+		System.out.println(ta2);
+	}
+}
+
+
+
+FAQ:
+===
+Q)How can we force container to behave Lazy for singleton beans?
+A. We need to add one annotation @Lazy over Bean Config.
+
+ex:
+@Component("t1")
+@Lazy
+public class Token { ... }
+
+ex:
+<bean id="" class="" scope="" lazy-init="true" > </bean>
+
+6. How can we convert prototype Loading to EAGER?
+=>NO,And we can never provide 2 scopes for same class
+
+
+
+
+
+=====================================================================================
+LookUp Method Injection (LMI)  Problem Statement:-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+class B
+{
+
+}
+
+Class A{ -->dependent  
+
+B ob;  -->dependency
+
+}
+
+ If Dependency(child) bean is prototype and dependent bean is singleton(Parent)
+ then expected output may not come.
+
+ If child is Prototype Scope and Parent is singleton scope then
+ expected output may not come.
+
+ If Dependent bean is singleton (Parent is singleton)
+ and Dependency bean is prototype (child is prototype)
+ then Spring container creating first time both object and linked them.
+ When we request to read object 2nd time (getBean) then new child 
+ object is created. But link is not updated with parent (singleton) bean.
+
+
+*** Hint: Independent is prototype, dependent is singleton.
+
+====LMI : Problem Application Code =======================
+1. Spring Bean
+package com.app.raghu.service;
+
+import java.util.Random;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
+public class Token {
+
+	private int code;
+
+	public Token() {
+		super();
+		code = Math.abs(new Random().nextInt());
+	}
+
+	@Override
+	public String toString() {
+		return "Token [code=" + code + "]";
+	}
+	
+	
+}
+-----------
+package com.app.raghu.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("singleton")
+public class TokenService {
+
+	@Autowired
+	private Token token;
+
+	public Token getToken() {
+		return token;
+	}
+
+	@Override
+	public String toString() {
+		return "TokenService [token=" + token + "]";
+	}
+	
+}
+
+2. Spring Config class
+package com.app.raghu.config;
+
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan("com.app.raghu")
+public class AppConfig {
+
+}
+
+3. test class
+package com.app.raghu.test;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.app.raghu.config.AppConfig;
+import com.app.raghu.service.Token;
+import com.app.raghu.service.TokenService;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		//reading first time
+		TokenService ts1 = ac.getBean("tokenService",TokenService.class);
+		Token tk1 = ts1.getToken();
+		System.out.println(tk1);
+
+		//reading 2nd time
+		TokenService ts2 = ac.getBean("tokenService",TokenService.class);
+		Token tk2 = ts2.getToken();
+		System.out.println(tk2);
+
+		//reading 3rd time
+		TokenService ts3 = ac.getBean("tokenService",TokenService.class);
+		Token tk3 = ts3.getToken();
+		System.out.println(tk3);
+	}
+
+	public static void main1(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		//reading first time
+		TokenService ts1 = ac.getBean("tokenService",TokenService.class);
+		Token tk1 = ts1.getToken();
+		System.out.println(ts1.hashCode() + " " + tk1.hashCode());
+
+		//reading 2nd time
+		TokenService ts2 = ac.getBean("tokenService",TokenService.class);
+		Token tk2 = ts2.getToken();
+		System.out.println(ts2.hashCode() + " " + tk2.hashCode());
+
+		//reading 3rd time
+		TokenService ts3 = ac.getBean("tokenService",TokenService.class);
+		Token tk3 = ts3.getToken();
+		System.out.println(ts3.hashCode() + " " + tk3.hashCode());
+	}
+}
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+LookUp Method Injection (LMI)  Solution Statement:-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*) Here, programmer can not handle memory related operations in
+   Spring/Java. It is handled by Spring f/w only.
+
+  But we need to follow below steps in Dependent class/Parent class.
+  (In child class / Dependency class no code changes)
+
+1. Define one method that return child/Dependency class 
+  (with no body , just return null)
+
+2. Add @Lookup Annotation over method
+
+3. Call such method in getter or toString ...(some where)
+  
+  
+  Q) What is LMI and When to use?
+A. Lookup Method Injection.
+  If Parent/Dependent class is singleton and child/dependency class is
+  prototype then we need LMI.
+
+Q) Steps to Implement LMI?
+A. Only code changes comes at parent/Dependent class
+
+1. Define one method that return child/Dependency class 
+  (with no body , just return null)
+2. Add @Lookup Annotation over method
+3. Call such method in getter or toString ...(some where)
+  
+  
+  
+
+
+===========
+Autowiring
+===========
+
+=> We can inject dependent bean into target in 2 ways
+
+			1) Manual Wiring
+
+			2) Autowiring
+
+
+-> Manual wiring means programmer will inject dependent object into target object using 
+   <property/> tag or <constructor-arg/> tag using 'ref' attribute.
+
+
+	<bean id="dieselEng" class="in.ashokit.beans.DieselEngine" />
+
+	<bean id="car" class="in.ashokit.beans.Car">
+		<property name="eng" ref="dieselEng" />
+	</bean>
+
+
+-> Autowiring means IoC container will identify dependent bean and it will inject into target Bean 
+	(we no need to use any ref attribute in bean configuration file)
+
+
+		
+1. If 1 Dependency object is found , then link objects
+2. If Zero Dependency objects found, NoSuchBeanDefinitionException We can use 
+@Autowired(required=false) null value(if no bean found create null)
+
+3.3. Multiple Dependency beans
+
+ 3.1 If Multiple Beans/Objects found
+   NoUniqueBeanDefinitionException: Found multiple, expected one
+   
+ 3.2 If multiple beans found, container will compare
+       ReferenceVariableName = child Object Name
+       DependencyName == Independent Bean name
+	   
+ 3.3 Selecting one Independent Bean name manually using 
+	@Qualifier("objNameToBeInjected")
+   If @Qualifier is used but still Bean name is not found
+       NoSuchBeanDefinitionException
+	   
+ 3.4 Container can provide one default bean for injection
+     using @Primary. Incase multiple Independent Beans found
+     and having 1 object with @Primary then it is 1st priority.
+
+->if we write both @Qualifier and @Primary then @Qualifier will have a priority
+
+   ->to rename all local variable in java select-> alt+shift+R ->enter
+
+-> Autowiring will work based on below modes
+
+				1) byName
+				2) byType
+				3) constructor
+				4) no
+
+Note: Autowiring will not work bydefault, We have to enable autowiring on target bean like below.
+
+		<bean id="id" class="pkg.Classname"   auto-wire="byName | byType | constructor | no " />
+	
+
+==========
+byName
+==========
+
+=>Based on target bean variable name IOC will identify dependent bean and it will inject it.
+
+	public class Car {
+
+	private IEngine eng;
+
+	public void setEng(IEngine eng) {
+		System.out.println("setEng ( ) method called....");
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int status = eng.start();
+
+		if (status >= 1) {
+			System.out.println("Journey Started..");
+		} else {
+			System.out.println("Engine Trouble");
+		}
+	}
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="eng1" class="in.ashokit.beans.PetrolEngine" />
+
+	<bean id="eng" class="in.ashokit.beans.DieselEngine" />
+
+	<bean id="car" class="in.ashokit.beans.Car" autowire="byName"/>
+
+</beans>
+
+Note: In the above example Car class variable name is matched with 'DieselENgine' bean id hence DieselEngine obj will be injected into Car.
+
+========
+byType
+========
+
+-> Based on target bean data type of variable IOC will identify dependent object.
+
+			private IEngine eng;    ====> data type of eng is IEngine which is an interface
+
+=> If one interface having 2 implementations then there is a chance of getting Ambiguity problem. To overcome that we need to use 'autowire-candiate' attribute.
+
+			autowire-candidate="false"     ====> Not Eligible for Autowiring
+
+			autowire-candidate="true"        ===> Eligible for Autowiring
+
+
+
+Note: As an alternate for "autowire-candidate=true"  we can use "primary=true" to consider bean for Autowiring.
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="eng2" class="in.ashokit.beans.PetrolEngine" autowire-candidate="false"/>
+
+	<bean id="eng1" class="in.ashokit.beans.DieselEngine" autowire-candidate="true"/>
+
+	<bean id="car" class="in.ashokit.beans.Car" autowire="byType" />
+
+</beans>
+
+(or)
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="eng2" class="in.ashokit.beans.PetrolEngine" primary="true" />
+
+	<bean id="eng1" class="in.ashokit.beans.DieselEngine"  />
+
+	<bean id="car" class="in.ashokit.beans.Car" autowire="constructor" />
+
+</beans>
+
+
+===========
+constructor
+===========
+
+=> It is used to perform Autowiring by calling target class constructor
+
+package in.ashokit.beans;
+
+public class Car {
+
+	private IEngine eng;
+
+	public Car(IEngine eng) {
+		this.eng = eng;
+	}
+
+	public void drive() {
+		int status = eng.start();
+
+		if (status >= 1) {
+			System.out.println("Journey Started..");
+		} else {
+			System.out.println("Engine Trouble");
+		}
+	}
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="eng2" class="in.ashokit.beans.PetrolEngine" autowire-candidate="false"/>
+
+	<bean id="eng1" class="in.ashokit.beans.DieselEngine" autowire-candidate="true"/>
+
+	<bean id="car" class="in.ashokit.beans.Car" autowire="constructor" />
+
+</beans>
+
+===============================================================================
+
+Note: Autowiring is applicable for Reference Type variable (not applicable for primitive types)
+
+====================
+Spring Bean Life Cycle
+====================
+
+Method: It is block of code that executes a task, must be called
+        manually (calling code should be given by programmer).
+		
+=>LifeCycle Method: A method which is called by container in between Object creation and destory.
+
+=>Spring Bean object creation and object destruction will be taken care by IOC container.
+
+=>To connect with External Resources we use them.
+
+		-> Servlet Life Cycle
+		   1)init
+		   2)Service
+		   3)destroy
+		
+		-> Spring Bean Life Cycle
+
+
+=> In spring We have 2 Life Cycle methods are 
+
+				1)init ( )    --------> initialization logic
+
+				2)destroy ( )  -----> destruction logic
+
+=> Spring Bean Life Cycle we can Configure in 3 Ways
+
+			1) XML Approach (Declarative)(init ,destroy)
+
+			2) Spring Pre-defined Interfaces (InitializingBean(I) DisposableBean(I))
+
+			3) JSR Annotations(@PostConstruct,@PreDestroy)
+
+
+============  Bean Life Cycle using XML Approach ================
+
+	<bean id="motor" class="in.ashokit.beans.Motor" 
+					 init-method="start" 
+					 destroy-method="stop"/>
+
+
+	
+init-method   ==> It represents the method which should be called after bean obj created
+
+destroy-method ==> It represents the method which should be called when bean obj removing from IoC
+
+
+1)find the class class and scan
+2)Injection done
+3)Init method
+4)getBean
+5)destroy method
+6)destroy bean
+
+package in.ashokit.beans;
+
+public class Motor {
+
+	public Motor() {
+		System.out.println("Motor :: Constructor");
+	}
+
+	public void start() {
+		System.out.println("Motor started....");
+	}
+
+	public void doWork() {
+		System.out.println("Motor Pulling Water...");
+	}
+
+	public void stop() {
+		System.out.println("Motor stopped.....");
+	}
+
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="motor" class="in.ashokit.beans.Motor"
+		init-method="start" destroy-method="stop" />
+
+</beans>
+
+
+============  Spring Pre-defined Interfaces ================
+
+=> We need to implement predefined interfaces provided by Spring Framework
+			
+		1) InitializingBean ---> afterPropertiesSet ( ) 
+
+		2) DisposableBean ---> destroy ( ) 
+
+
+1. Spring Bean
+package com.app.service;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class ExcelExportService implements InitializingBean, DisposableBean {
+
+	private String fileName;
+	private String mode;
+	
+	public void afterPropertiesSet() throws Exception {
+		//lot of code...
+		System.out.println("FROM INIT METHOD");
+	}
+	
+	public void destroy() throws Exception {
+		//some code..
+		System.out.println("FROM DESTORY METHOD");
+	}
+
+	public ExcelExportService() {
+		super();
+		System.out.println("FROM CONSTRUCTOR");
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+		System.out.println("FROM SETTER METHOD");
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	@Override
+	public String toString() {
+		return "ExcelExportService [fileName=" + fileName + ", mode=" + mode + "]";
+	}
+	
+	
+}
+
+2. Spring XML File
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean 
+    id="eobj" 
+    class="com.app.service.ExcelExportService" >
+    
+    	<property name="fileName" value="Sample" />
+    	<property name="mode" value="CSV FORMAT"/>
+    </bean>
+
+</beans>
+
+3. test class
+package com.app.test;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
+		Object ob = ac.getBean("eobj");
+		System.out.println(ob);
+		ac.close();
+	}
+}
+
+============  JSR Annotation Approach ================
+
+@PostConstruct -----> It represents init method
+
+@PreDestroy ----> It represents destroy method
+
+
+1.Spring Bean
+package com.app.service;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+public class ExcelExportService {
+
+	private String fileName;
+	private String mode;
+	
+	@PostConstruct
+	public void setup() throws Exception {
+		//lot of code...
+		System.out.println("FROM INIT METHOD");
+	}
+	
+	@PreDestroy
+	public void clean() throws Exception {
+		//some code..
+		System.out.println("FROM DESTORY METHOD");
+	}
+
+	public ExcelExportService() {
+		super();
+		System.out.println("FROM CONSTRUCTOR");
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+		System.out.println("FROM SETTER METHOD");
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	@Override
+	public String toString() {
+		return "ExcelExportService [fileName=" + fileName + ", mode=" + mode + "]";
+	}
+	
+	
+}
+
+2. XML Config file
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        
+        ">
+        
+	<context:annotation-config/>
+
+    <bean 
+    id="eobj" 
+    class="com.app.service.ExcelExportService" >
+    
+    	<property name="fileName" value="Sample" />
+    	<property name="mode" value="CSV FORMAT"/>
+    </bean>
+
+</beans>
+
+3. test class
+package com.app.test;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
+		Object ob = ac.getBean("eobj");
+		System.out.println(ob);
+		ac.close();
+	}
+}
+
+======================================================================================
+=================================================================================
+
+1) What is Spring Bean  --which is managed by ioc
+
+2) How to represent Java class as Spring Bean   --> by using xml,annonattion
+
+3) What is IoC Container --
+
+4) What is Bean Configuration File
+
+5) How to start IOC Container
+
+6) First Application Development using Spring Core Module
+
+7) What is Dependency Injection (SI , CI & FI )
+
+8) BeanFactory vs ApplicationContext
+
+9) Lazy loading vs Eager Loading
+
+10) Bean Scopes (Singleton & Prototype)
+
+11) Autowiring & Modes
+
+12) Bean Life Cycle Methods (XML, Programmatic & Annotations)
+
+=================
+Spring Annotations
+=================
+
+Annotation ===> Represent Metadata
+
+=> Annotations Introduced in Java 1.5v
+
+=> Annotations are alternate for xml configurations
+
+=> In Spring Framework we have several annotations
+
+
+1)@Configuration: This Annotation indicates Spring container input.
+   That contains all Bean Details, to be created.
+
+2)@ComponentScan :This annotation used to provide base/sub packeges to spring container
+                 scan our annotation classes like @Component, @Controller, @Service, 
+				  @Repository and @Bean methods
+
+
+basePackage :- This is the input must be given incase of
+	Spring Annotation configuration ( So that container
+	can find our classes and create object )
+	
+	
+	
+3) @Component : To represent java class as Spring Bean and container will create an object
+
+4) @Service: To represent java class as Spring Bean (Business layer classes)
+
+5) @Repository:  To represent java class as Spring Bean (Persistence layer classes)
+
+6) @Scope : To represent bean scope
+
+7) @Autowired : To perform dependency injection
+
+8) @Qualifier : To perform autowiring based on byName
+
+9) @Primary : To represent primary bean for Autowiring
+
+10) @Bean : Creating Object for predefined or User defined Reuasable Object
+
+11)Stereotype: An annotations that informs Spring container to create the object
+=================================================================================================
+
+		basePackage = in.ashokit
+
+					    in.ashokit.beans --------> will be scanned
+
+					    in.ashokit.utils ----------> will be scanned
+
+					    in.ashokit.dao ------> will be scanned
+
+					    com.ashokit.service --->  will not be scanned
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
