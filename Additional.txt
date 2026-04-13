@@ -1,0 +1,636 @@
+ 
+  
+SpEL (Spring Expression Language):-
+==============================================
+
+=> an Expression is a combination of operators and operands
+  that returns finally one value, once it gets executed.
+ex:
+    a + b x 2
+
+=> SpEL expression is created using : operators, variables,
+   class/objects, method calls...etc returns finally one value
+
+Arithmetic  : +, -, *, /, %, ^, div, mod
+Relational  : <, >, ==, !=, <=, >=, lt, gt, eq, ne, le, ge
+Logical     : and, or, not, &&, ||, !
+Conditional : ?:
+
+=> @Value Annotation
+1. HardCoding value : @Value("   ")
+2. Reading data from external resources  : @Value(" ${ } ")
+3. SpEL : Execute one expression : @Value(" #{ } ")
+
+**) SpEL Supports Link objects using:
+	@Value("#{childObjName}")   -->equel to autowire
+======================================================
+1. We must enclose our Expression inside #{  }
+2. To indicate String use single quotes ex:  'hello'
+3. To call instance method we need object/reference
+Ex:
+  @Value(" new java.util.Random().nextInt() ")
+
+  @Component("sob")
+  class Sample {
+     @Value("88")
+     int id;
+  }
+
+ // in some other class 
+ @Value("#{ sob.id % 10}")   ---> equals to sob.getId()
+ @Value("#{ sob.id mod 10}")
+
+4. To call static method first specify that it is a type
+     T(ClassName).methodName()
+
+=======Example : code SpEL  ===========================
+1. Spring Beans
+package com.app.raghu;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ModelData {
+
+	@Value("TEST")
+	private String model;
+
+	public ModelData() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "ModelData [model=" + model + "]";
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+}
+----------------
+package com.app.raghu;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Process {
+	
+	//@Value("#{ 2 + 3 }")
+	//@Value("#{ 'Hello ABC'.length()  }")
+	//@Value("#{ new java.util.Random().nextInt() }")
+	//@Value("#{ T(java.lang.Math).abs(-9)}")
+	//@Value(" #{ T(java.lang.Math).abs( new java.util.Random().nextInt() ) }")
+	//@Value(" #{ 'Hello'.length() > 0 ? 55 : 44 }")
+	//@Value(" #{ modelData.model.length() }")
+	@Value(" #{ modelData.model.toLowerCase() }")
+	private String code;
+	
+	//@Value("#{ false }")
+	//@Value(" #{ new java.util.Random().nextInt() > 5 ? true:false}")
+	//@Value(" #{ new java.util.Random().nextInt() > 5 }")
+	//@Value(" #{ new java.util.Random().nextInt() ge 5 }")
+	//@Value(" #{ 5 % 2 > 0 && 2 + 3 le 5  }")
+	@Value(" #{ 5 % 2 > 0 and 2 + 3 le 5  }")
+	private boolean isPresent;
+
+	@Override
+	public String toString() {
+		return "Process [code=" + code + ", isPresent=" + isPresent + "]";
+	}
+
+	
+	
+}
+
+2. Spring Config code
+package com.app.raghu;
+
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan("com.app.raghu")
+public class AppConfig {
+
+}
+
+3. test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		Process p = ac.getBean("process",Process.class);
+		System.out.println(p);
+	}
+}
+==============================================================
+Q) Write SpEL for below concepts!
+
+1. String to char[]
+
+@Value(" #{ modelData.model.toCharArray() }")
+private char[] data;
+
+@Value(" #{ 'Hello Users!'.toCharArray() }")
+private char[] data;
+	
+
+2. String to byte[]
+
+@Value(" #{ modelData.model.getBytes() }")
+private byte[] arr;
+
+@Value(" #{ 'Hello Users!'.getBytes() }")
+private char[] data;
+
+3. Any type to Stream
+ 
+@Value("#{modelData.model.lines()}")
+private Stream<String> stream;
+===============================================================
+  
+
+
+
+
+
+
+  
+====================  
+Circular Dependency:-
+====================
+Circular dependency is when class “A” depends on class “B” to use their property 
+for any requirement and the same class “B” depends on class “A” for some dependency in Project. 
+This means to compile Project A you must first compile Project B, but you can’t do that as B 
+requires A to be compiled. This is the problem that circular dependencies cause.
+
+1. Create objects using default constrcutor
+2. Call set methods to link Objects.
+ex:
+ class A{  B ob; }
+ class B{ A oa; }
+
+Then container will do
+  A a1 = new A();
+  B b1 = new B();
+  a1.setOb(b1);
+  b1.setOa(a1);
+
+*) If we define toString methods in both classes and we try to
+  print object/reference then it may leads to Error:
+
+========Code======================
+1. Spring Bean
+package com.app.raghu;
+
+public class Employee {
+
+	private String name;
+	
+	private Project pob;
+	
+	public Employee() {
+		super();
+		System.out.println("EMPLOYEE OBJ");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Project getPob() {
+		return pob;
+	}
+
+	public void setPob(Project pob) {
+		this.pob = pob;
+		System.out.println("EMPLOYEE.setProject ");
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", pob=" + pob + "]";
+	}
+
+	
+	
+}
+------------
+package com.app.raghu;
+
+public class Project {
+
+	private String pcode;
+	
+	private Employee eob;
+	
+	
+	public Project() {
+		super();
+		System.out.println("PROJECT OBJ");
+	}
+
+	public String getPcode() {
+		return pcode;
+	}
+
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
+	}
+
+	public Employee getEob() {
+		return eob;
+	}
+
+	public void setEob(Employee eob) {
+		this.eob = eob;
+		System.out.println("PROJECT.setEmployee ");
+	}
+
+	@Override
+	public String toString() {
+		return "Project [pcode=" + pcode + ", eob=" + eob + "]";
+	}
+
+	
+	
+	
+}
+
+2. config.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="e1" class="com.app.raghu.Employee">
+    	<property name="name" value="RAJU"/>
+    	<property name="pob">
+    		<ref bean="p1"/>
+    	</property>
+    </bean>
+
+	<bean id="p1" class="com.app.raghu.Project">
+		<property name="pcode" value="HTED"/>
+		<property name="eob">
+			<ref bean="e1"/>
+		</property>
+	</bean>
+</beans>
+
+3. test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("config.xml");
+		Employee e = ac.getBean("e1",Employee.class);
+		System.out.println(e);
+	}
+}
+
+
+
+
+
+
+
+
+ 
+Spring Core : Scheduling
+==================================
+
+
+
+*) Scheduling: Executing a task in a loop over PERIOD of TIME
+    or POINT of TIME.
+
+Ex:
+1. EMI Alerts
+2. Databackups
+3. Bank Statement
+4. Notifications
+5. Payslip Generation
+
+*) PERIOD of TIME : Time gap 
+Ex: 30 mins, 5 days, 2 years..etc
+*) POINT of TIME  : Exact Date/Time
+Ex: 10PM -- Generate Report
+    31st Dec -- Backup.
+
+============================================================
+*) To implement Scheduling in Spring, we need to use 
+1. @EnableScheduling over config class
+2. @Scheduled over method (public void ____() { //code  } )
+** Scheduler methods are executed by container in a loop.
+
+@Scheduled: Takes 3 types of inputs
+
+a. fixedDelay : 
+ Exact time gap b/w last method finish to next method call/start
+ 
+   fixedDelay=Maximum wait time after completion of task
+
+b. fixedRate : 
+  Exact time gap b/w last method call to next method call
+  
+  fixedRate=Maximum wait time(+including task execution time)
+  
+  
+  
+  =>lets fixedRate =10 min and m1() method called and took 3 mins of time to execute
+     then (10-3=7) 7 min time gap will taken to call m1 method again.
+	 
+  =>lets fixedRate =10 min and m1() method called and took 8 mins of time to execute
+     then (10-3=7) 2 min time gap will taken to call m1 method again.
+	 
+	 =>lets fixedRate =10 min and m1() method called and took 20 mins of time to execute
+     then (10-20=-10) it indicates no more waiting.
+  
+
+c. cron *** : it is from linux os indicate task/job execution based on TIME/DATE
+
+--------Example--------------------------------
+1. Spring Bean
+package com.app.raghu;
+
+import java.util.Date;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProductReportService {
+	
+	//@Scheduled(fixedDelay = 2000) //in milli sec
+	//@Scheduled(fixedDelayString = "2000") //in milli sec
+	@Scheduled(fixedRate = 2000)
+	public void generateReport() {
+		System.out.println("HELLO " + new Date());
+	}
+}
+
+2. Spring Config class
+package com.app.raghu;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@ComponentScan("com.app.raghu")
+@EnableScheduling
+public class AppConfig {
+
+}
+
+3. Test class
+package com.app.raghu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		//ProductReportService ps = ac.getBean("productReportService",ProductReportService.class);
+		ProductReportService ps = ac.getBean(ProductReportService.class);
+		
+	}
+}
+
+*) Method execution time may not be same for multiple calls.
+ ie if a method is called multiple time, then it may take
+  different time/gaps to finish execution.
+
+====================================================
+Q) What is the diff b/w fixedDelay and fixedRate?
+A) fixedDelay provides exact time gap to start next call
+   counting from last method finish time.
+   fixedRate includes even task execution time, if method/task
+   execution time is more than rate then wait time is ZERO.
+
+******************************************************************
+    -=-=-=-=-=-=-=-=-=-=-=-= CRON =-=-=-=-=-=-=-=-=-=-=-=-=-=-
+******************************************************************
+It is from Linux OS, indicates task/JOB execution based on
+date/time.
+
+cron = SEC   MIN    HRS   DAY   MONTH   WEEKDAY
+      0-59  0-59   0-23  1-31   1-12     SUN-SAN 1-7 / 0-7
+
+Symbols Like
+ *  = all/any
+ -  = Range
+ ,  = set of possible values
+ ?  = any (used in DAY and WEEKDAY when Month is provided)
+===Expressions========================================================
+
+1. cron = 0 0 9 * * *
+=> Execute task every day at 9:00:00 AM
+
+2. cron = 0 0 18 * * *
+=> Execute task every day at 6:00:00 PM
+
+3. cron = 0 0 9 10 * *
+=> Execute task on every month 10th day at 9:00:00AM
+
+4. cron = 0 30 * * * *
+=> Execute task on every hour 30th min only.
+  [not 30 mins gap]
+  
+7:55 AM -- App Started
+8:30:00 --1st task executed
+9:30:00 -- 2nd task executed
+10:30:00 ...
+
+5. cron = 10 * * * * *
+=> execute task on Every minute, 10th sec 
+	[it is not 10sec gap, at 10th sec of minute]
+ex:
+  7:56:10
+  7:57:10
+  7:58:10
+  7:59:10
+  8:00:10
+
+6. cron = */10 * * * * * (Symbol 1 indicate period of time)
+for every 10 sec gap
+
+--Example code-------
+package com.app.raghu;
+
+import java.util.Date;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProductReportService {
+	
+	
+	//@Scheduled(cron = "10 * * * * *")
+	@Scheduled(cron = "*/10 * * * * *")
+	public void generateReport() {
+		System.out.println("HELLO " + new Date());
+	}
+}
+---------------------------------------------------
+7. cron = 0  0  9  10 * *     (on 10th of every month)
+   cron = 0  0  9  */10 * *  (For every 10 days gap)
+
+8. cron = 59  59 23  * * *
+=> Execute task every day 11:59:59 PM (1sec before to 12 AM)
+
+9. cron = 0 0 9 * 3 * (wrong format)
+          0 0 9 ? 3 ?
+
+ If month is provided and you want to specify all day/week day
+ then use ? symbol.
+  
+  
+  
+  SpringBoot
+  ================
+  
+  
+  Spring F/w : it used to develop web/distributed applications.
+
+*) Configuration (XML/Java/Annotation) code is common for applications
+Some Common Configuration:
+1. Database Connection
+2. Notifications/Alerts
+3. Security/User Operation
+..etc
+
+--Ex Spring XML Configuration Code for Database Connection -----
+<bean id="dbCon" class="DriverManagerDataSource">
+  <property name="driverClassName" value="OracleDriver"/>
+  <property name="url" value="jdbc:oracle:thin.."/>
+  <property name="username" value="raghu"/>
+  <property name="password" value="ashokIT"/>
+</bean>
+===========================================================
+*) Spring Boot : It is defined using Spring F/w. 
+  It reduces common configuration compared to Spring F/w.
+
+=> Pivotal Team has provided one parent project "Spring Boot"
+ which has pre-defined configuration code (AutoConfiguration)
+ in Jars format.
+
+=> We must create one child project and link to parent.
+=> Project must be created using either Maven or Gradle.
+
+
+--Ex Spring Boot Database Connection-------------
+1. Child Project / Spring boot starter project
+2. Maven -- pom.xml / Gradle -- build.gradle
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+
+implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.3'
+
+3. application.properties
+driver=Oracle
+url=jdbc:oracle:thin
+username=raghu
+password=ashokIT
+
+
+*) Note: Pre-defined configurartion code exist in jar files
+those naming format looks like:
+   spring-boot-starter-[some name]
+
+Ex:
+spring-boot-starter-mail
+spring-boot-starter-web
+spring-boot-starter-security
+spring-boot-starter-aop
+spring-boot-starter-jdbc
+spring-boot-starter-data-jpa
+..etc
+Ref:
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.build-systems.starters
+
+1. Spring F/w : Web Apps (Spring MVC)
+   Spring Boot : ReSTFul Webservices (Microservices/Spring Cloud)
+
+2. Spring boot provided embedded servers : Tomcat, Jetty, Undertow
+  [netty -- reactive programming -- Spring Webflux]
+
+3. Spring boot provided embedded databases: H2, HSQL, Derby 
+	[not recomanded in production] (Dev/Test Env)
+
+4. Spring Boot never support working with XML Configuration
+   (Parsing, executing ... slow)
+   We work using Java and Annotation Configuration.
+
+5. No EJB/.ear in Spring boot.
+
+6. Actuator : Production ready endpoints
+
+7. Scaling (Up/Down) supported
+
+8.** FrontEnd (Angular/ReactJS) + Backend (Spring boot) + Cloud
+  JSON (JACKSON) Global Data format is supported.
+
+9. YAML/Properties both inputs are supported by Spring boot.
+ex:
+application.properties
+------------------------
+spring.datasource.driver-class-name=Oracle
+spring.datasource.url=jdbc:oracle:thin:...
+spring.datasource.username=raghu
+spring.datasource.password=ashokIT
+
+application.yml
+------------------------
+spring:
+  datasource:
+     driver-class-name: Oracle
+     url: dbc:oracle:thin:...
+     username: raghu
+     password: ashokIT
+
+*) Spring boot has provided pre-defined keys set
+https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.mail
+
+Q) .yml or .yaml ?? which one is valid?
+A) Both. in Spring Boot we use .yml only.
+   K8s --> .yaml
+=============================================================
+.jar = java archive  (.class files)
+.war = web archive  (.class + html/css/js ...etc)
+
+Web / Rest in Spring Boot -- JAR ( Code + Embedded Server)
+                          -- WAR (Code --> Run in external server)
+
+*) https://start.spring.io/
+  This website (even used by IDEs) supports creating spring boot
+  application with initial setup.
+  
+  
+  
+  
